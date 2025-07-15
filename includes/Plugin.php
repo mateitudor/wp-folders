@@ -46,6 +46,9 @@ class Plugin {
         // Add custom Git repository update checker
         add_filter( 'site_transient_update_plugins', [ 'Folders\\Plugin', 'checkGitRepositoryForUpdates' ] );
         
+        // Override plugin information popup
+        add_filter( 'plugins_api', [ 'Folders\\Plugin', 'overridePluginInfo' ], 10, 3 );
+        
         // Add auto-update control
         add_filter( 'auto_update_plugin', [ 'Folders\\Plugin', 'controlAutoUpdates' ], 10, 2 );
         
@@ -245,6 +248,54 @@ class Plugin {
         );
         
         wp_send_json( $response );
+    }
+    
+    /**
+     * Override plugin information popup to show our GitHub data
+     */
+    public static function overridePluginInfo( $result, $action, $args ) {
+        // Only handle our plugin
+        if ( $action !== 'plugin_information' || ! isset( $args->slug ) || $args->slug !== 'folders' ) {
+            return $result;
+        }
+        
+        // Get the latest version from GitHub
+        $latest_version = self::getLatestVersionFromGit();
+        
+        // Create our own plugin information object
+        $plugin_info = new \stdClass();
+        $plugin_info->name = 'Folders - Ultimate Folder Organizer';
+        $plugin_info->slug = 'folders';
+        $plugin_info->version = $latest_version ?: FOLDERS_PLUGIN_VERSION;
+        $plugin_info->author = 'Matei Tudor';
+        $plugin_info->author_profile = 'https://mateitudor.com';
+        $plugin_info->last_updated = date('Y-m-d');
+        $plugin_info->requires = '4.6';
+        $plugin_info->requires_php = '8.0';
+        $plugin_info->tested = '6.8.1';
+        $plugin_info->compatibility = array(
+            '6.8.1' => array(
+                '6.8.1' => array(
+                    'rating' => 100,
+                    'count' => 1
+                )
+            )
+        );
+        $plugin_info->rating = 100;
+        $plugin_info->num_ratings = 1;
+        $plugin_info->downloaded = 1;
+        $plugin_info->active_installs = 1;
+        $plugin_info->homepage = 'https://github.com/mateitudor/wp-folders';
+        $plugin_info->sections = array(
+            'description' => 'A better way to organize the media library, posts, pages, users & custom post types.',
+            'installation' => 'Download and install via WordPress admin or upload manually.',
+            'changelog' => 'See the commit history for detailed changes.',
+            'screenshots' => '',
+            'reviews' => ''
+        );
+        $plugin_info->download_link = $latest_version ? "https://github.com/mateitudor/wp-folders/archive/v{$latest_version}.zip" : '';
+        
+        return $plugin_info;
     }
     
     /**
