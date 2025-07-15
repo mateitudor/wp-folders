@@ -1,0 +1,957 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Folders\n"
+"POT-Creation-Date: 2024-06-19 11:49+0300\n"
+"PO-Revision-Date: 2022-11-15 11:00+0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"X-Generator: Poedit 2.4.3\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: folders.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.min.js\n"
+
+
+
+#: includes/Fallbacks/plugin-exist.php:14
+msgid ""
+"It looks like you have another version of Folders installed, please "
+"uninstall it before activating this new version."
+msgstr ""
+
+#: includes/Fallbacks/plugin-incompatible.php:15
+msgid "It looks like you have an old version of Folders installed."
+msgstr ""
+
+#: includes/Fallbacks/plugin-incompatible.php:16
+msgid ""
+"To use this new version, you must uninstall the old version completely and "
+"delete it with all data, because the new version is incompatible with the "
+"previous ones. Don't forget to back up your plugin data if necessary."
+msgstr ""
+
+#: includes/Fallbacks/plugin-incompatible.php:17
+msgid ""
+"You can delete these data here right now or if you have any questions, "
+"please contact our support team."
+msgstr ""
+
+#: includes/Fallbacks/plugin-incompatible.php:19
+msgid ""
+"Delete all data of the old version of Folders and activate the new version."
+msgstr ""
+
+#: includes/Fallbacks/plugin-incompatible.php:24
+msgid ""
+"Are you sure you want to delete all data of the old version of Folders?"
+msgstr ""
+
+#: includes/Models/FoldersModel.php:9
+msgid "Media"
+msgstr ""
+
+#: includes/Models/FoldersModel.php:10
+msgid "Posts"
+msgstr ""
+
+#: includes/Models/FoldersModel.php:11
+msgid "Pages"
+msgstr ""
+
+#: includes/Models/FoldersModel.php:12
+msgid "Users"
+msgstr ""
+
+#: includes/Models/HelperModel.php:76 includes/System/Folders.php:276
+#: includes/Views/modal-folder-type.php:14
+#: includes/Views/modal-security-profile.php:14
+msgid "Title"
+msgstr ""
+
+#: includes/Models/HelperModel.php:77 includes/System/Folders.php:279
+msgid "Alternative text"
+msgstr ""
+
+#: includes/Models/HelperModel.php:78 includes/System/Folders.php:283
+msgid "File URL"
+msgstr ""
+
+#: includes/Models/HelperModel.php:79 includes/System/Folders.php:289
+msgid "Dimension"
+msgstr ""
+
+#: includes/Models/HelperModel.php:80 includes/System/Folders.php:294
+msgid "Size"
+msgstr ""
+
+#: includes/Models/HelperModel.php:81 includes/System/Folders.php:298
+msgid "Filename"
+msgstr ""
+
+#: includes/Models/HelperModel.php:82 includes/System/Folders.php:302
+msgid "Type"
+msgstr ""
+
+#: includes/Models/HelperModel.php:83 includes/System/Folders.php:306
+msgid "Date"
+msgstr ""
+
+#: includes/Models/HelperModel.php:84 includes/System/Folders.php:310
+msgid "Uploaded by"
+msgstr ""
+
+#: includes/Models/HelperModel.php:114 includes/Models/HelperModel.php:127
+msgid "The operation completed successfully"
+msgstr ""
+
+#: includes/Models/HelperModel.php:115 includes/Models/HelperModel.php:128
+msgid "The operation failed"
+msgstr ""
+
+#: includes/Models/HelperModel.php:116 includes/Models/HelperModel.php:130
+msgid "This is the pro feature."
+msgstr ""
+
+#: includes/Models/HelperModel.php:116 includes/Models/HelperModel.php:130
+msgid "Upgrade to get the full power."
+msgstr ""
+
+#: includes/Models/HelperModel.php:117
+msgid "Parent Folder"
+msgstr ""
+
+#: includes/Models/HelperModel.php:118 includes/Models/HelperModel.php:168
+msgid "New Folder"
+msgstr ""
+
+#: includes/Models/HelperModel.php:129
+msgid "These plugin settings are built-in and cannot be modified"
+msgstr ""
+
+#: includes/Models/HelperModel.php:132
+msgid "The license is already registered for other domain"
+msgstr ""
+
+#: includes/Models/HelperModel.php:133
+msgid "Failed to connect to license server"
+msgstr ""
+
+#: includes/Models/HelperModel.php:134
+msgid "The personal token is invalid or has been deleted"
+msgstr ""
+
+#: includes/Models/HelperModel.php:135
+msgid ""
+"The personal token is missing the required permission for license server"
+msgstr ""
+
+#: includes/Models/HelperModel.php:136
+msgid "Invalid purchase code"
+msgstr ""
+
+#: includes/Models/HelperModel.php:137
+msgid "Something goes wrong, try again shortly"
+msgstr ""
+
+#: includes/Models/HelperModel.php:138
+msgid "Parsing error, try again shortly"
+msgstr ""
+
+#: includes/Models/HelperModel.php:139
+msgid "Error updating license data"
+msgstr ""
+
+#: includes/Models/HelperModel.php:174
+msgid "Color"
+msgstr ""
+
+#: includes/Models/HelperModel.php:180
+msgid "Rename"
+msgstr ""
+
+#: includes/Models/HelperModel.php:186
+msgid "Copy"
+msgstr ""
+
+#: includes/Models/HelperModel.php:192
+msgid "Paste"
+msgstr ""
+
+#: includes/Models/HelperModel.php:198
+#: includes/Views/modal-confirm-clear-all.php:16
+#: includes/Views/modal-confirm-delete.php:16
+#: includes/Views/modal-security-profile-rights.php:27
+#: includes/Views/modal-security-profile.php:53 includes/Views/sidebar.php:66
+msgid "Delete"
+msgstr ""
+
+#: includes/Models/HelperModel.php:204
+msgid "Download"
+msgstr ""
+
+#: includes/Models/SecurityProfilesModel.php:38
+msgid "Common Folders"
+msgstr ""
+
+#: includes/Models/SecurityProfilesModel.php:41
+msgid "Personal Folders"
+msgstr ""
+
+#: includes/Models/SecurityProfilesModel.php:50
+msgid ""
+"Users can create, view, and edit each other's folders if they are granted "
+"such access."
+msgstr ""
+
+#: includes/Models/SecurityProfilesModel.php:53
+msgid ""
+"Users can only create, view and edit their personal folders if they are "
+"granted such access."
+msgstr ""
+
+#: includes/System/Notice.php:26
+msgid "Thanks for start using the plugin Folders. Let's create first folders."
+msgstr ""
+
+#: includes/System/Notice.php:26
+msgid "Go to WordPress Media Library."
+msgstr ""
+
+#: includes/Views/feedback.php:6
+msgid "I do not need this plugin anymore"
+msgstr ""
+
+#: includes/Views/feedback.php:9
+msgid "I found another plugin that do the job better"
+msgstr ""
+
+#: includes/Views/feedback.php:10
+msgid "Please tell us which one"
+msgstr ""
+
+#: includes/Views/feedback.php:13
+msgid "I don't know how to use it"
+msgstr ""
+
+#: includes/Views/feedback.php:16
+msgid "This's temporary deactivation"
+msgstr ""
+
+#: includes/Views/feedback.php:19
+msgid "It's not working on my website"
+msgstr ""
+
+#: includes/Views/feedback.php:22
+msgid "Other"
+msgstr ""
+
+#: includes/Views/feedback.php:23
+msgid "Please share a reason..."
+msgstr ""
+
+#: includes/Views/feedback.php:30
+msgid "Quick Feedback"
+msgstr ""
+
+#: includes/Views/feedback.php:34
+msgid ""
+"Before you deactivate Folders could you let us know why? Your feedback will "
+"help us improve the product, please tell us why did you decide to deactivate "
+"Folders. Thank you!"
+msgstr ""
+
+#: includes/Views/feedback.php:50
+msgid "Skip & Deactivate"
+msgstr ""
+
+#: includes/Views/feedback.php:51
+msgid "Submit & Deactivate"
+msgstr ""
+
+#: includes/Views/modal-confirm-clear-all.php:7
+#: includes/Views/modal-confirm-delete.php:7
+msgid "Confirm"
+msgstr ""
+
+#: includes/Views/modal-confirm-clear-all.php:12
+msgid "Are you sure you want to deactivate the plugin and delete all its data?"
+msgstr ""
+
+#: includes/Views/modal-confirm-clear-all.php:15
+#: includes/Views/modal-confirm-delete.php:15 includes/Views/sidebar.php:44
+#: includes/Views/sidebar.php:65 includes/Views/sidebar.php:101
+msgid "Cancel"
+msgstr ""
+
+#: includes/Views/modal-confirm-delete.php:12
+msgid "Are you sure you want to delete {{Modal.data.count}} items?"
+msgstr ""
+
+#: includes/Views/modal-folder-type.php:7
+msgid "New Folder Type"
+msgstr ""
+
+#: includes/Views/modal-folder-type.php:8
+msgid "Edit Folder Type"
+msgstr ""
+
+#: includes/Views/modal-folder-type.php:17
+#: includes/Views/modal-security-profile-rights.php:20
+#: includes/Views/modal-select-folder-type.php:14
+#: includes/Views/modal-select-role.php:14
+#: includes/Views/modal-select-security-profile.php:14
+#: includes/Views/modal-select-user.php:14
+msgid "None"
+msgstr ""
+
+#: includes/Views/modal-folder-type.php:23
+#: includes/Views/modal-security-profile-rights.php:32
+#: includes/Views/modal-security-profile.php:77
+#: includes/Views/modal-select-folder-type.php:19
+#: includes/Views/modal-select-role.php:19
+#: includes/Views/modal-select-security-profile.php:19
+#: includes/Views/modal-select-user.php:19
+msgid "Close"
+msgstr ""
+
+#: includes/Views/modal-folder-type.php:24
+#: includes/Views/modal-security-profile-rights.php:33
+#: includes/Views/modal-security-profile.php:78
+msgid "Submit"
+msgstr ""
+
+#: includes/Views/modal-security-profile-rights.php:7
+msgid "New Security Rights"
+msgstr ""
+
+#: includes/Views/modal-security-profile-rights.php:8
+msgid "Edit Security Rights"
+msgstr ""
+
+#: includes/Views/modal-security-profile-rights.php:14
+msgid "Select user or role"
+msgstr ""
+
+#: includes/Views/modal-security-profile-rights.php:15
+msgid "Select user"
+msgstr ""
+
+#: includes/Views/modal-security-profile-rights.php:16
+msgid "Select role"
+msgstr ""
+
+#: includes/Views/modal-security-profile-rights.php:24
+#: includes/Views/modal-security-profile.php:50 includes/Views/sidebar.php:45
+msgid "Create"
+msgstr ""
+
+#: includes/Views/modal-security-profile-rights.php:24
+msgid ""
+"users can create folders and subfolders, don't forget to give the view "
+"permission too"
+msgstr ""
+
+#: includes/Views/modal-security-profile-rights.php:25
+#: includes/Views/modal-security-profile.php:51
+msgid "View"
+msgstr ""
+
+#: includes/Views/modal-security-profile-rights.php:25
+msgid "users can view the folder tree"
+msgstr ""
+
+#: includes/Views/modal-security-profile-rights.php:26
+#: includes/Views/modal-security-profile.php:52
+msgid "Edit"
+msgstr ""
+
+#: includes/Views/modal-security-profile-rights.php:26
+msgid "users can edit folders (rename, drag & drop)"
+msgstr ""
+
+#: includes/Views/modal-security-profile-rights.php:27
+msgid "users can delete folders"
+msgstr ""
+
+#: includes/Views/modal-security-profile-rights.php:28
+#: includes/Views/modal-security-profile.php:54
+msgid "Attach"
+msgstr ""
+
+#: includes/Views/modal-security-profile-rights.php:28
+msgid "users can attach items to folders, like media files, posts, pages, etc."
+msgstr ""
+
+#: includes/Views/modal-security-profile.php:7
+msgid "New Security Profile"
+msgstr ""
+
+#: includes/Views/modal-security-profile.php:8
+msgid "Edit Security Profile"
+msgstr ""
+
+#: includes/Views/modal-security-profile.php:16 includes/Views/settings.php:200
+#: includes/Views/settings.php:312
+msgid "Description"
+msgstr ""
+
+#: includes/Views/modal-security-profile.php:20
+msgid "Add new profile"
+msgstr ""
+
+#: includes/Views/modal-security-profile.php:23
+msgid "Edit rights"
+msgstr ""
+
+#: includes/Views/modal-security-profile.php:26
+msgid "Delete selected rights"
+msgstr ""
+
+#: includes/Views/modal-security-profile.php:48
+msgid "User / Role"
+msgstr ""
+
+#: includes/Views/modal-security-profile.php:49
+msgid "Access Type"
+msgstr ""
+
+#: includes/Views/modal-security-profile.php:72 includes/Views/settings.php:262
+#: includes/Views/settings.php:325
+msgid "The table is empty"
+msgstr ""
+
+#: includes/Views/modal-select-folder-type.php:7
+msgid "Select Folder Type"
+msgstr ""
+
+#: includes/Views/modal-select-folder-type.php:12
+msgid ""
+"Select a registered built-in or custom WordPress post type from the list "
+"below if you want to create a new folder type item."
+msgstr ""
+
+#: includes/Views/modal-select-folder-type.php:20
+#: includes/Views/modal-select-role.php:20
+#: includes/Views/modal-select-security-profile.php:20
+#: includes/Views/modal-select-user.php:20
+msgid "Select"
+msgstr ""
+
+#: includes/Views/modal-select-role.php:7
+msgid "Select Role"
+msgstr ""
+
+#: includes/Views/modal-select-role.php:12
+msgid ""
+"To create a new profile entry, select a registered WordPress role from the "
+"list below."
+msgstr ""
+
+#: includes/Views/modal-select-security-profile.php:7
+msgid "Select Security"
+msgstr ""
+
+#: includes/Views/modal-select-security-profile.php:12
+msgid ""
+"Select a registered security role from the list below if you want to change "
+"it."
+msgstr ""
+
+#: includes/Views/modal-select-user.php:7
+msgid "Select User"
+msgstr ""
+
+#: includes/Views/modal-select-user.php:12
+msgid ""
+"To create a new profile entry, select a registered WordPress user from the "
+"list below."
+msgstr ""
+
+#: includes/Views/proposal.php:5
+msgid ""
+"The folders are not available in the free version of the plugin. To access "
+"this feature and even more functionality, you will need to purchase the pro "
+"version."
+msgstr ""
+
+#: includes/Views/proposal.php:7 includes/Views/settings.php:420
+msgid "Buy Now"
+msgstr ""
+
+#: includes/Views/settings.php:9
+msgid "General"
+msgstr ""
+
+#: includes/Views/settings.php:10
+msgid "Permissions"
+msgstr ""
+
+#: includes/Views/settings.php:11
+msgid "Tools"
+msgstr ""
+
+#: includes/Views/settings.php:12
+msgid "Go Pro"
+msgstr ""
+
+#: includes/Views/settings.php:67
+msgid "Purchase Code"
+msgstr ""
+
+#: includes/Views/settings.php:68
+msgid ""
+"To enable all the professional features of the plugin, enter your purchase "
+"code and activate it."
+msgstr ""
+
+#: includes/Views/settings.php:74
+msgid "Activate License"
+msgstr ""
+
+#: includes/Views/settings.php:75
+msgid "Deactivate License"
+msgstr ""
+
+#: includes/Views/settings.php:82
+msgid "The license is active and valid for this domain"
+msgstr ""
+
+#: includes/Views/settings.php:86
+msgid ""
+"Note: If you're on a development site and you want to activate this license "
+"later on the production domain, please deactivate it first."
+msgstr ""
+
+#: includes/Views/settings.php:93
+msgid "Access roles"
+msgstr ""
+
+#: includes/Views/settings.php:94
+msgid ""
+"Only selected user roles have access to folders. These are general settings, "
+"use the permissions tab to grant users additional personal or general "
+"permissions."
+msgstr ""
+
+#: includes/Views/settings.php:106
+msgid "Default folder color"
+msgstr ""
+
+#: includes/Views/settings.php:107
+msgid "Set the default color for all folders that don't have their own colors."
+msgstr ""
+
+#: includes/Views/settings.php:117
+msgid "Disable folder counter"
+msgstr ""
+
+#: includes/Views/settings.php:118
+msgid "Disable the display of the number of items attached to each folder."
+msgstr ""
+
+#: includes/Views/settings.php:128
+msgid "Disable ajax refresh"
+msgstr ""
+
+#: includes/Views/settings.php:129
+msgid ""
+"Disable ajax refresh in list view. Set when there are problems with using "
+"plugins along with Folders that change the media library list view."
+msgstr ""
+
+#: includes/Views/settings.php:139
+msgid "Infinite scrolling"
+msgstr ""
+
+#: includes/Views/settings.php:140
+msgid ""
+"Enable infinite media library scrolling instead of the 'Load More' button."
+msgstr ""
+
+#: includes/Views/settings.php:150
+msgid "Show media details on hover"
+msgstr ""
+
+#: includes/Views/settings.php:151
+msgid ""
+"View essential metadata, including title, size, type, date, and dimensions, "
+"by simply hovering your cursor over an image."
+msgstr ""
+
+#: includes/Views/settings.php:163
+msgid "Disable search bar"
+msgstr ""
+
+#: includes/Views/settings.php:164
+msgid "Disable the display of the folder search bar."
+msgstr ""
+
+#: includes/Views/settings.php:173
+msgid "Replace media"
+msgstr ""
+
+#: includes/Views/settings.php:174
+msgid ""
+"Adds tools to the 'Attachment details' screen that can be used to select or "
+"upload an image to replace the current image while preserving its URL and "
+"properties."
+msgstr ""
+
+#: includes/Views/settings.php:179
+msgid ""
+"Note: Disable your browser cache and any WordPress caching plugins before "
+"use. Otherwise, you may find that this feature is not working properly."
+msgstr ""
+
+#: includes/Views/settings.php:186
+msgid "Delete fully"
+msgstr ""
+
+#: includes/Views/settings.php:187
+msgid ""
+"Enable full uninstall mode, the plugin will clear all its options and "
+"database tables after clicking the delete link in the WordPress plugins area."
+msgstr ""
+
+#: includes/Views/settings.php:196
+msgid "Save"
+msgstr ""
+
+#: includes/Views/settings.php:201
+msgid ""
+"Use this section to control who can view and edit folders. Simply create "
+"specific permissions for users and roles, then select a security profile for "
+"each folder type and apply it."
+msgstr ""
+
+#: includes/Views/settings.php:206
+msgid "Folder Types"
+msgstr ""
+
+#: includes/Views/settings.php:207
+msgid ""
+"This table shows the types of folders (media, pages, posts, etc.) supported "
+"by the plugin. To allow a user to create and edit folders of a specific "
+"folder type, you must select a security profile for that type from the list. "
+"If you don't find the desired folder type, try adding it manually."
+msgstr ""
+
+#: includes/Views/settings.php:213
+msgid "Add new folder type"
+msgstr ""
+
+#: includes/Views/settings.php:216
+msgid "Edit folder type"
+msgstr ""
+
+#: includes/Views/settings.php:219
+msgid "Delete selected folder types"
+msgstr ""
+
+#: includes/Views/settings.php:230 includes/Views/settings.php:296
+msgid "Refresh"
+msgstr ""
+
+#: includes/Views/settings.php:246
+msgid "Folder type"
+msgstr ""
+
+#: includes/Views/settings.php:247 includes/Views/settings.php:311
+msgid "Security profile"
+msgstr ""
+
+#: includes/Views/settings.php:248
+msgid "Status"
+msgstr ""
+
+#: includes/Views/settings.php:256
+msgid "enabled"
+msgstr ""
+
+#: includes/Views/settings.php:256
+msgid "disabled"
+msgstr ""
+
+#: includes/Views/settings.php:272
+msgid "Security profiles"
+msgstr ""
+
+#: includes/Views/settings.php:273
+msgid ""
+"This table is used to create and manage security profiles that can be "
+"selected and linked in the table above. Custom security profiles allow you "
+"to set permissions for each user or role to work with folders, including "
+"creating, viewing, editing, deleting, and attaching items to a folder."
+msgstr ""
+
+#: includes/Views/settings.php:279
+msgid "Add new security profile"
+msgstr ""
+
+#: includes/Views/settings.php:282
+msgid "Edit security profile"
+msgstr ""
+
+#: includes/Views/settings.php:285
+msgid "Delete selected security profiles"
+msgstr ""
+
+#: includes/Views/settings.php:337
+msgid "Import from other plugins"
+msgstr ""
+
+#: includes/Views/settings.php:338
+msgid ""
+"Import folders and attachments from third-party plugins for the media "
+"library."
+msgstr ""
+
+#: includes/Views/settings.php:347
+msgid "Import now"
+msgstr ""
+
+#: includes/Views/settings.php:355
+msgid "Export"
+msgstr ""
+
+#: includes/Views/settings.php:356
+msgid ""
+"The current folder structure with attachments will be exported to a CSV file."
+msgstr ""
+
+#: includes/Views/settings.php:359
+msgid "Export Now"
+msgstr ""
+
+#: includes/Views/settings.php:360
+msgid "Download file"
+msgstr ""
+
+#: includes/Views/settings.php:366
+msgid "Import"
+msgstr ""
+
+#: includes/Views/settings.php:367
+msgid "Select a CSV file with the folder structure and attachments to import."
+msgstr ""
+
+#: includes/Views/settings.php:373
+msgid "Clearing all existing folders before import"
+msgstr ""
+
+#: includes/Views/settings.php:374
+msgid "Import attachments"
+msgstr ""
+
+#: includes/Views/settings.php:376
+msgid "Import Now"
+msgstr ""
+
+#: includes/Views/settings.php:383
+msgid "Folder counters recalculation"
+msgstr ""
+
+#: includes/Views/settings.php:384
+msgid ""
+"This action will completely recalculate all item counters that are attached "
+"to folders."
+msgstr ""
+
+#: includes/Views/settings.php:387
+msgid "Recalculate"
+msgstr ""
+
+#: includes/Views/settings.php:393
+msgid "Clear data"
+msgstr ""
+
+#: includes/Views/settings.php:394
+msgid ""
+"This action will deactivate the plugin Folders and delete all its data and "
+"settings and return you to the default WordPress state before installing the "
+"plugin."
+msgstr ""
+
+#: includes/Views/settings.php:397
+msgid "Clear now"
+msgstr ""
+
+#: includes/Views/settings.php:408 includes/Views/settings.php:438
+msgid "Get Folders Pro"
+msgstr ""
+
+#: includes/Views/settings.php:409
+msgid "Unlock all features and premium support"
+msgstr ""
+
+#: includes/Views/settings.php:411
+msgid "Create Subfolders"
+msgstr ""
+
+#: includes/Views/settings.php:412
+msgid "Sort Options"
+msgstr ""
+
+#: includes/Views/settings.php:413
+msgid "Advanced User Rights"
+msgstr ""
+
+#: includes/Views/settings.php:414
+msgid "Organize Pages, Posts and Custom Post Types"
+msgstr ""
+
+#: includes/Views/settings.php:415
+msgid "Page Builders: Elementor, Beaver, Divi, Brizy etc."
+msgstr ""
+
+#: includes/Views/settings.php:416
+msgid "Lifetime License"
+msgstr ""
+
+#: includes/Views/settings.php:417
+msgid "VIP Support"
+msgstr ""
+
+
+msgstr ""
+
+
+msgstr ""
+
+#: includes/Views/settings.php:439
+msgid "Unlock all features and premium support."
+msgstr ""
+
+
+msgstr ""
+
+
+msgstr ""
+
+#: includes/Views/settings.php:456
+msgid "Support"
+msgstr ""
+
+
+msgstr ""
+
+
+msgstr ""
+
+
+msgstr ""
+
+#: includes/Views/sidebar.php:6
+msgid "create folder"
+msgstr ""
+
+#: includes/Views/sidebar.php:13
+msgid "sort folder items"
+msgstr ""
+
+#: includes/Views/sidebar.php:22
+msgid ""
+"Click the \"Create\" button above to add your first folder, then start drag "
+"& drop items."
+msgstr ""
+
+#: includes/Views/sidebar.php:27
+msgid "Add New Folders"
+msgstr ""
+
+#: includes/Views/sidebar.php:51
+msgid "Delete Folders"
+msgstr ""
+
+#: includes/Views/sidebar.php:60
+msgid "Are you sure you want to delete selected folders and all subfolders?"
+msgstr ""
+
+#: includes/Views/sidebar.php:61
+msgid "Delete items attached to selected folders too"
+msgstr ""
+
+#: includes/Views/sidebar.php:78
+msgid "Upload a new file"
+msgstr ""
+
+#: includes/Views/sidebar.php:93
+msgid "Drop file here"
+msgstr ""
+
+#: includes/Views/sidebar.php:94
+msgid "or"
+msgstr ""
+
+#: includes/Views/sidebar.php:95
+msgid "Select file"
+msgstr ""
+
+#: includes/Views/sidebar.php:102
+msgid "Replace"
+msgstr ""
+
+#: includes/Views/sidebar.php:108
+msgid "Sort Folder Items"
+msgstr ""
+
+#: includes/Views/sidebar.php:118
+msgid "By Name"
+msgstr ""
+
+#: includes/Views/sidebar.php:125
+msgid "By Date"
+msgstr ""
+
+#: includes/Views/sidebar.php:132
+msgid "By Modified"
+msgstr ""
+
+#: includes/Views/sidebar.php:139
+msgid "By Author"
+msgstr ""
+
+#: includes/Views/sidebar.php:160
+msgid "All items"
+msgstr ""
+
+#: includes/Views/sidebar.php:172
+msgid "Uncategorized"
+msgstr ""
+
+#: includes/Views/sidebar.php:182
+msgid "Search folders..."
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "Folders"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://1.envato.market/getfolders"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"A better way to organize WordPress media library, posts, pages, users & "
+"custom post types in a logical way. Just drag & drop items into folders you "
+"and use them easely."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Avirtum"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://1.envato.market/avirtum"
+msgstr ""
