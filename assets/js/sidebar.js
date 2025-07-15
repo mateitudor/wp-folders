@@ -747,15 +747,13 @@
 						function d() {
 							t.removeClass("folders-active")
 						}
-						i.on("change", a => {
-							a.target.selectedIndex = 0
-						}), t.off("click"), t.one("click", ".folders-close", () => {
+						t.off("click"), t.one("click", ".folders-close", () => {
 							d()
 						}), t.one("click", ".folders-submit", () => {
 							var a = o.val().split(",").map(a => a.trim()),
 								e = i.val(),
 								t = h.colorpicker.get(r);
-							h.fn.createFolders(a, t, e), d()
+							h.fn.createFolders(a, e, t), d()
 						}), t.addClass("folders-active")
 						console.log('onFolderCreate: Form activated');
 					}
