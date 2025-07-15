@@ -91,7 +91,7 @@ jobs:
         draft: false
         prerelease: false
         body: |
-          ## Folders WordPress Plugin v${{ github.ref_name }}
+          ## Folders WordPress Plugin ${{ github.ref_name }}
           
           ### What's New
           - GitHub release system implemented
