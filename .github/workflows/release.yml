@@ -1,0 +1,42 @@
+name: Create Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.1'
+        
+    - name: Install dependencies
+      run: composer install --no-dev --optimize-autoloader
+      
+    - name: Create plugin zip
+      run: |
+        # Remove unnecessary files
+        rm -rf .git .github .gitignore README.md composer.lock
+        rm -rf vendor/*/tests vendor/*/test vendor/*/docs vendor/*/examples
+        
+        # Create zip file
+        VERSION=${GITHUB_REF#refs/tags/}
+        zip -r "folders-${VERSION}.zip" . -x "*.DS_Store" "*.git*" "*.github*" "composer.lock" "README.md"
+        
+    - name: Create Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: folders-*.zip
+        generate_release_notes: true
+        draft: false
+        prerelease: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
