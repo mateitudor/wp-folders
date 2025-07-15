@@ -16,7 +16,8 @@ class ConfigModel {
         'replace_media' => false,
         'uninstall_fully' => false,
         'media_hover_details' => true,
-        'media_hover_details_list' => [ 'title', 'size', 'dimension' ] // 'alternative_text', 'file_url', 'filename', 'type', 'date', 'uploaded_by'
+        'media_hover_details_list' => [ 'title', 'size', 'dimension' ], // 'alternative_text', 'file_url', 'filename', 'type', 'date', 'uploaded_by'
+        'auto_updates' => false
     ];
 
     public static function init() {

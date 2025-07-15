@@ -137,6 +137,19 @@ defined( 'ABSPATH' ) || exit;
                         </div>
                     </div>
                     <div class="folders-spacer"></div>
+                    <div class="folders-option">
+                        <div class="folders-description">
+                            <div class="folders-title"><?php esc_html_e("Auto-updates", 'folders'); ?></div>
+                            <div class="folders-text"><?php esc_html_e("Enable automatic updates for this plugin. When enabled, the plugin will automatically update to new versions when they become available.", 'folders'); ?></div>
+                        </div>
+                        <div class="folders-data">
+                            <div al-toggle="App.data.config.auto_updates" al-on.click.stop="App.fn.config.onAutoUpdateChange($event)"></div>
+                            <div class="folders-note">
+                                <?php esc_html_e("Note: Auto-updates can be controlled globally in WordPress Settings → General → Auto-updates, or individually in the Plugins page.", 'folders'); ?>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="folders-spacer"></div>
                     <br>
                     <br>
                     <br>

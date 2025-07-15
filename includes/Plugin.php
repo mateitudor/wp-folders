@@ -46,6 +46,9 @@ class Plugin {
         // Add custom Git repository update checker
         add_filter( 'site_transient_update_plugins', [ 'Folders\\Plugin', 'checkGitRepositoryForUpdates' ] );
         
+        // Add auto-update control
+        add_filter( 'auto_update_plugin', [ 'Folders\\Plugin', 'controlAutoUpdates' ], 10, 2 );
+        
         // Check if database tables exist, create them if they don't
         self::ensureTablesExist();
         
@@ -172,6 +175,29 @@ class Plugin {
         set_transient( $cache_key, $version, HOUR_IN_SECONDS );
         
         return $version;
+    }
+    
+    /**
+     * Control auto-updates for this plugin
+     * Users can enable/disable auto-updates in the plugins table
+     */
+    public static function controlAutoUpdates( $update, $item ) {
+        // Only control our plugin
+        if ( $item->plugin !== FOLDERS_PLUGIN_BASE_NAME ) {
+            return $update;
+        }
+        
+        // Check if auto-updates are enabled for this plugin
+        $auto_updates = get_option( 'auto_update_plugins', array() );
+        $auto_update_enabled = in_array( FOLDERS_PLUGIN_BASE_NAME, $auto_updates );
+        
+        // If auto-updates are disabled, prevent automatic updates
+        if ( ! $auto_update_enabled ) {
+            return false;
+        }
+        
+        // If auto-updates are enabled, allow the update
+        return $update;
     }
 	
 	private static function ensureTablesExist() {
