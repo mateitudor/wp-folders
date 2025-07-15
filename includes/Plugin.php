@@ -43,6 +43,9 @@ class Plugin {
         add_filter( 'http_request_args', [ 'Folders\\Plugin', 'disableWordPressOrgUpdates' ], 10, 2 );
         add_filter( 'site_transient_update_plugins', [ 'Folders\\Plugin', 'removePluginFromUpdateCheck' ] );
         
+        // Add custom Git repository update checker
+        add_filter( 'site_transient_update_plugins', [ 'Folders\\Plugin', 'checkGitRepositoryForUpdates' ] );
+        
         // Check if database tables exist, create them if they don't
         self::ensureTablesExist();
         
@@ -93,6 +96,82 @@ class Plugin {
         }
         
         return $transient;
+    }
+    
+    /**
+     * Check Git repository for plugin updates
+     */
+    public static function checkGitRepositoryForUpdates( $transient ) {
+        if ( ! $transient ) {
+            return $transient;
+        }
+        
+        $current_version = FOLDERS_PLUGIN_VERSION;
+        $latest_version = self::getLatestVersionFromGit();
+        
+        if ( $latest_version && version_compare( $current_version, $latest_version, '<' ) ) {
+            $update = new \stdClass();
+            $update->id = FOLDERS_PLUGIN_BASE_NAME;
+            $update->slug = 'folders';
+            $update->plugin = FOLDERS_PLUGIN_BASE_NAME;
+            $update->new_version = $latest_version;
+            $update->url = 'https://github.com/mateitudor/wp-folders';
+            $update->package = "https://github.com/mateitudor/wp-folders/archive/v{$latest_version}.zip";
+            $update->tested = '6.8.1';
+            $update->requires = '4.6';
+            $update->requires_php = '7.4';
+            $update->last_updated = date('Y-m-d');
+            
+            if ( ! isset( $transient->response ) ) {
+                $transient->response = array();
+            }
+            $transient->response[FOLDERS_PLUGIN_BASE_NAME] = $update;
+        }
+        
+        return $transient;
+    }
+    
+    /**
+     * Get the latest version from Git repository
+     */
+    private static function getLatestVersionFromGit() {
+        // Cache for 1 hour
+        $cache_key = 'folders_git_latest_version';
+        $cached_version = get_transient( $cache_key );
+        
+        if ( $cached_version !== false ) {
+            return $cached_version;
+        }
+        
+        // GitHub API endpoint for releases
+        $api_url = 'https://api.github.com/repos/mateitudor/wp-folders/releases/latest';
+        
+        $response = wp_remote_get( $api_url, array(
+            'timeout' => 15,
+            'headers' => array(
+                'User-Agent' => 'WordPress/Folders-Plugin',
+                'Accept' => 'application/vnd.github.v3+json'
+            )
+        ) );
+        
+        if ( is_wp_error( $response ) ) {
+            return false;
+        }
+        
+        $body = wp_remote_retrieve_body( $response );
+        $data = json_decode( $body, true );
+        
+        if ( ! $data || ! isset( $data['tag_name'] ) ) {
+            return false;
+        }
+        
+        // Extract version from tag (remove 'v' prefix if present)
+        $version = ltrim( $data['tag_name'], 'v' );
+        
+        // Cache for 1 hour
+        set_transient( $cache_key, $version, HOUR_IN_SECONDS );
+        
+        return $version;
     }
 	
 	private static function ensureTablesExist() {
