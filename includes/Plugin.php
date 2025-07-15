@@ -128,7 +128,7 @@ class Plugin {
             $update->package = "https://github.com/mateitudor/wp-folders/archive/v{$latest_version}.zip";
             $update->tested = '6.8.1';
             $update->requires = '4.6';
-            $update->requires_php = '7.4';
+            $update->requires_php = '8.0';
             $update->last_updated = date('Y-m-d');
             
             if ( ! isset( $transient->response ) ) {

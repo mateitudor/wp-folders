@@ -3,9 +3,9 @@
  * Plugin Name: Folders - Ultimate Folder Organizer
  * Plugin URI: https://1.envato.market/getfolders
  * Description: A better way to organize the media library, posts, pages, users & custom post types.
- * Version: 2.9.9
+ * Version: 2.9.10
  * Requires at least: 4.6
- * Requires PHP: 7.4
+ * Requires PHP: 8.0
  * Author: Matei Tudor
  * Author URI: https://mateitudor.com
  * License: GPLv3
