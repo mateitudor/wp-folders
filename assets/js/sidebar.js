@@ -439,7 +439,7 @@
 					folders: a,
 					parent: e
 				}).done(a => {
-					for (const e of a) h.data.tree.addItem(e);
+					for (const e of a) h.data.tree.addItem(e, e.parent);
 					h.fn.updateNoticeAndSearch(), h.fn.updateFoldersAttachCount(), h.fn.refreshFolderFilter()
 				}).fail(() => {
 					h.notify.show(h.globals.msg.failed, "folders-failed")

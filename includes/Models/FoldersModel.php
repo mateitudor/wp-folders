@@ -218,7 +218,8 @@ class FoldersModel {
                     $folders[] = [
                         'id' => strval( $wpdb->insert_id ),
                         'title' => $name,
-                        'color' => $color
+                        'color' => $color,
+                        'parent' => strval( $parent )
                     ];
                     
                     if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
