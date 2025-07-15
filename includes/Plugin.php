@@ -49,6 +49,9 @@ class Plugin {
         // Add auto-update control
         add_filter( 'auto_update_plugin', [ 'Folders\\Plugin', 'controlAutoUpdates' ], 10, 2 );
         
+        // Add manual update check action
+        add_action( 'wp_ajax_folders_force_update_check', [ 'Folders\\Plugin', 'forceUpdateCheck' ] );
+        
         // Check if database tables exist, create them if they don't
         self::ensureTablesExist();
         
@@ -152,12 +155,22 @@ class Plugin {
         $response = wp_remote_get( $api_url, array(
             'timeout' => 15,
             'headers' => array(
-                'User-Agent' => 'WordPress/Folders-Plugin',
-                'Accept' => 'application/vnd.github.v3+json'
+                'User-Agent' => 'WordPress/Folders-Plugin/2.9.2',
+                'Accept' => 'application/vnd.github.v3+json',
+                'Cache-Control' => 'no-cache'
             )
         ) );
         
         if ( is_wp_error( $response ) ) {
+            return false;
+        }
+        
+        $status_code = wp_remote_retrieve_response_code( $response );
+        
+        // Check for rate limiting or other errors
+        if ( $status_code !== 200 ) {
+            // If rate limited, try again in 5 minutes instead of 1 hour
+            set_transient( $cache_key, false, 5 * MINUTE_IN_SECONDS );
             return false;
         }
         
@@ -198,6 +211,37 @@ class Plugin {
         
         // If auto-updates are enabled, allow the update
         return $update;
+    }
+    
+    /**
+     * Force a manual update check (AJAX endpoint)
+     */
+    public static function forceUpdateCheck() {
+        // Check permissions
+        if ( ! current_user_can( 'manage_options' ) ) {
+            wp_die( 'Unauthorized' );
+        }
+        
+        // Clear all update caches
+        delete_transient( 'folders_git_latest_version' );
+        delete_site_transient( 'update_plugins' );
+        
+        // Force WordPress to check for updates
+        wp_update_plugins();
+        
+        // Get the latest version
+        $latest_version = self::getLatestVersionFromGit();
+        $current_version = FOLDERS_PLUGIN_VERSION;
+        
+        $response = array(
+            'success' => true,
+            'current_version' => $current_version,
+            'latest_version' => $latest_version,
+            'update_available' => $latest_version && version_compare( $current_version, $latest_version, '<' ),
+            'message' => $latest_version ? "Latest version: $latest_version" : "Could not fetch latest version"
+        );
+        
+        wp_send_json( $response );
     }
 	
 	private static function ensureTablesExist() {

@@ -147,6 +147,8 @@ defined( 'ABSPATH' ) || exit;
                             <div class="folders-note">
                                 <?php esc_html_e("Note: Auto-updates can be controlled globally in WordPress Settings → General → Auto-updates, or individually in the Plugins page.", 'folders'); ?>
                             </div>
+                            <div class="folders-spacer"></div>
+                            <div class="folders-button folders-select" al-on.click="App.fn.config.forceUpdateCheck()"><?php esc_html_e("Check for Updates Now", 'folders'); ?></div>
                         </div>
                     </div>
                     <div class="folders-spacer"></div>
