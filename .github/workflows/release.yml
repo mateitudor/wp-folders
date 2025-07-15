@@ -23,13 +23,38 @@ jobs:
       
     - name: Create plugin zip
       run: |
-        # Remove unnecessary files
-        rm -rf .git .github .gitignore README.md composer.lock
-        rm -rf vendor/*/tests vendor/*/test vendor/*/docs vendor/*/examples
-        
-        # Create zip file
+        # Get version from tag
         VERSION=${GITHUB_REF#refs/tags/}
-        zip -r "folders-${VERSION}.zip" . -x "*.DS_Store" "*.git*" "*.github*" "composer.lock" "README.md"
+        echo "Creating release for version: $VERSION"
+        
+        # List files before cleanup
+        echo "Files before cleanup:"
+        ls -la
+        
+        # Remove unnecessary files and directories
+        rm -rf .git .github .gitignore README.md composer.lock scripts/
+        rm -rf vendor/*/tests vendor/*/test vendor/*/docs vendor/*/examples 2>/dev/null || true
+        
+        # List files after cleanup
+        echo "Files after cleanup:"
+        ls -la
+        
+        # Create zip file with explicit exclusions
+        zip -r "folders-${VERSION}.zip" . \
+          -x "*.DS_Store" \
+          -x "*.git*" \
+          -x "*.github*" \
+          -x "composer.lock" \
+          -x "README.md" \
+          -x "scripts/*" \
+          -x "vendor/*/tests/*" \
+          -x "vendor/*/test/*" \
+          -x "vendor/*/docs/*" \
+          -x "vendor/*/examples/*"
+        
+        # Verify zip was created
+        echo "Created zip file:"
+        ls -la folders-*.zip
         
     - name: Create Release
       uses: softprops/action-gh-release@v1
@@ -38,5 +63,18 @@ jobs:
         generate_release_notes: true
         draft: false
         prerelease: false
+        body: |
+          ## Folders WordPress Plugin v${{ github.ref_name }}
+          
+          ### What's New
+          - GitHub release system implemented
+          - Auto-update controls added
+          - Improved error handling
+          
+          ### Installation
+          Download and install via WordPress admin or upload manually.
+          
+          ### Changelog
+          See the commit history for detailed changes.
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
