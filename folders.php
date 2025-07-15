@@ -43,10 +43,56 @@ if( get_option( 'folders_settings' ) ) {
     }
 }
 
+/**
+ * Get plugin version from Git tag or header comment
+ */
+function get_plugin_version() {
+    static $version = null;
+    
+    if ( $version === null ) {
+        // Try to get version from Git tag first
+        $git_version = get_git_version();
+        if ( $git_version ) {
+            $version = $git_version;
+        } else {
+            // Fallback to header comment
+            $plugin_data = get_file_data( __FILE__, array( 'Version' => 'Version' ) );
+            $version = $plugin_data['Version'] ?? '1.0.0';
+        }
+    }
+    
+    return $version;
+}
 
+/**
+ * Get version from Git tag
+ */
+function get_git_version() {
+    $git_dir = __DIR__ . '/.git';
+    
+    // Check if we're in a Git repository
+    if ( ! is_dir( $git_dir ) ) {
+        return false;
+    }
+    
+    // Try to get the latest tag
+    $output = array();
+    $return_var = 0;
+    
+    // Get the latest tag
+    exec( 'cd ' . escapeshellarg( __DIR__ ) . ' && git describe --tags --abbrev=0 2>/dev/null', $output, $return_var );
+    
+    if ( $return_var === 0 && ! empty( $output[0] ) ) {
+        $tag = trim( $output[0] );
+        // Remove 'v' prefix if present
+        return ltrim( $tag, 'v' );
+    }
+    
+    return false;
+}
 
 define( 'FOLDERS_PLUGIN_NAME', 'folders' );
-define( 'FOLDERS_PLUGIN_VERSION', '2.9.1' );
+define( 'FOLDERS_PLUGIN_VERSION', get_plugin_version() );
 define( 'FOLDERS_PLUGIN_DB_VERSION', '2.0.0');
 define( 'FOLDERS_PLUGIN_DB_TABLE_PREFIX', 'folders' );
 define( 'FOLDERS_PLUGIN_SHORTCODE_NAME', 'folders' );

@@ -14,7 +14,7 @@ TAG="v$VERSION"
 
 echo "🚀 Creating release for version $VERSION..."
 
-# Update version in folders.php
+# Update version in folders.php header comment
 echo "📝 Updating version in folders.php..."
 sed -i '' "s/Version: [0-9.]*/Version: $VERSION/" folders.php
 

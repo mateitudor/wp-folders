@@ -52,6 +52,9 @@ class Plugin {
         // Add manual update check action
         add_action( 'wp_ajax_folders_force_update_check', [ 'Folders\\Plugin', 'forceUpdateCheck' ] );
         
+        // Add debug update status action
+        add_action( 'wp_ajax_folders_debug_update_status', [ 'Folders\\Plugin', 'debugUpdateStatus' ] );
+        
         // Check if database tables exist, create them if they don't
         self::ensureTablesExist();
         
@@ -242,6 +245,31 @@ class Plugin {
         );
         
         wp_send_json( $response );
+    }
+    
+    /**
+     * Debug function to check update status
+     * Can be called via AJAX or directly
+     */
+    public static function debugUpdateStatus() {
+        $current_version = FOLDERS_PLUGIN_VERSION;
+        $latest_version = self::getLatestVersionFromGit();
+        $cached_version = get_transient( 'folders_git_latest_version' );
+        
+        $debug_info = array(
+            'current_version' => $current_version,
+            'latest_version_from_api' => $latest_version,
+            'cached_version' => $cached_version,
+            'update_available' => $latest_version && version_compare( $current_version, $latest_version, '<' ),
+            'cache_expires_in' => get_option( '_transient_timeout_folders_git_latest_version' ) - time(),
+            'github_api_url' => 'https://api.github.com/repos/mateitudor/wp-folders/releases/latest'
+        );
+        
+        if ( wp_doing_ajax() ) {
+            wp_send_json( $debug_info );
+        } else {
+            return $debug_info;
+        }
     }
 	
 	private static function ensureTablesExist() {
