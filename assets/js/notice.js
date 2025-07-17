@@ -1,1 +1,0 @@
-!function(o){"use strict";if(folders_notice_globals){const i=folders_notice_globals;o(document).on("click","#folders-first-use-notification .notice-dismiss",()=>{o.ajax({url:i.api.url+"/noticeoff",type:"POST",dataType:"json",contentType:"application/json",headers:{"X-WP-Nonce":i.api.nonce}})})}}(jQuery);

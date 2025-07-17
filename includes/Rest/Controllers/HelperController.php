@@ -67,17 +67,7 @@ class HelperController {
             ]
         );
 
-        register_rest_route(
-            FOLDERS_PLUGIN_REST_URL,
-            '/noticeoff',
-            [
-                [
-                    'methods' => \WP_REST_Server::CREATABLE,
-                    'callback' => [ $this, 'disableNotice' ],
-                    'permission_callback' => [ $this, 'canUploadFiles' ]
-                ]
-            ]
-        );
+
 
         register_rest_route(
             FOLDERS_PLUGIN_REST_URL,
@@ -145,11 +135,7 @@ class HelperController {
         return new \WP_REST_Response( $response );
     }
 
-    public function disableNotice( \WP_REST_Request $request ) {
-        $response = [ 'success' => HelperModel::disableNotice() ];
 
-        return new \WP_REST_Response( $response );
-    }
 
     public function uninstall( \WP_REST_Request $request ) {
         $data = HelperModel::uninstall();

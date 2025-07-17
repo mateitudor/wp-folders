@@ -64,7 +64,6 @@ class Plugin {
         load_plugin_textdomain( 'folders', false, dirname(FOLDERS_PLUGIN_BASE_NAME) . '/languages/' );
 
         new Rest\Routes();
-        new System\Notice();
         new System\Folders();
         new System\Settings();
         

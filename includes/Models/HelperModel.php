@@ -14,9 +14,7 @@ class HelperModel {
         return $wpdb->prefix . FOLDERS_PLUGIN_DB_TABLE_PREFIX . '_' . $table;
     }
 
-    public static function disableNotice() {
-        return update_option( 'folders_dismiss_first_use_notification', true, false );
-    }
+
 
     public static function uninstall() {
         include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
@@ -25,7 +23,6 @@ class HelperModel {
             \deactivate_plugins( FOLDERS_PLUGIN_BASE_NAME );
 
             $options = [
-                'folders_dismiss_first_use_notification',
                 'folders_db_version',
                 'folders_version',
                 'folders_config'
