@@ -38,11 +38,25 @@ echo "🏷️  Creating tag $TAG..."
 git tag $TAG
 git push origin $TAG
 
-echo "✅ Release process started!"
-echo "📋 GitHub Actions will automatically:"
-echo "   - Build the plugin zip"
-echo "   - Create a release with the zip file"
-echo "   - Generate release notes"
-echo ""
-echo "🔗 Check progress at: https://github.com/mateitudor/wp-folders/actions"
-echo "🔗 Release will be at: https://github.com/mateitudor/wp-folders/releases" 
+# Create GitHub release
+echo "🚀 Creating GitHub release..."
+gh release create "$TAG" \
+    --title "Version $VERSION" \
+    --notes "## What's New in Version $VERSION
+
+- Enhanced folder management functionality
+- Improved admin interface and user experience
+- Better error handling and security
+- Performance optimizations
+
+## Requirements
+
+- WordPress 5.8+
+- PHP 7.4+
+
+## Installation
+
+Download and install via WordPress admin or upload manually."
+
+echo "✅ Release created successfully!"
+echo "🔗 View release at: https://github.com/mateitudor/wp-folders/releases" 

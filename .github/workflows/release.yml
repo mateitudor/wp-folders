@@ -41,18 +41,26 @@ jobs:
         VERSION=${GITHUB_REF#refs/tags/}
         echo "Creating release for version: $VERSION"
         
-        # List files before cleanup
-        echo "Files before cleanup:"
-        ls -la
+        # Create a temporary directory for the plugin
+        mkdir -p temp/folders
         
-        # Remove unnecessary files and directories (with error handling)
+        # Copy all files to the temp/folders directory
+        echo "Copying files to temp/folders..."
+        cp -r * temp/folders/
+        cp -r .* temp/folders/ 2>/dev/null || echo "Some hidden files copied"
+        
+        # Remove unnecessary files and directories from the temp folder
         echo "Cleaning up files..."
+        cd temp/folders
         rm -rf .git .github .gitignore README.md composer.lock scripts/ 2>/dev/null || echo "Some files already removed"
         rm -rf vendor/*/tests vendor/*/test vendor/*/docs vendor/*/examples 2>/dev/null || echo "Some vendor files already removed"
         
-        # List files after cleanup
-        echo "Files after cleanup:"
+        # List files in temp/folders
+        echo "Files in temp/folders:"
         ls -la
+        
+        # Go back to root and create zip from temp directory
+        cd ../..
         
         # Check if zip command is available
         if ! command -v zip &> /dev/null; then
@@ -60,33 +68,40 @@ jobs:
           sudo apt-get update && sudo apt-get install -y zip
         fi
         
-        # Create zip file with explicit exclusions
+        # Create zip file from temp directory (this will create folders/ inside the zip)
         echo "Creating zip file..."
-        zip -r "folders-${VERSION}.zip" . \
-          -x "*.DS_Store" \
-          -x "*.git*" \
-          -x "*.github*" \
-          -x "composer.lock" \
-          -x "README.md" \
-          -x "scripts/*" \
-          -x "vendor/*/tests/*" \
-          -x "vendor/*/test/*" \
-          -x "vendor/*/docs/*" \
-          -x "vendor/*/examples/*" \
-          -x "*.zip"
+        cd temp
+        zip -r "../folders.zip" folders/ \
+          -x "folders/*.DS_Store" \
+          -x "folders/*.git*" \
+          -x "folders/*.github*" \
+          -x "folders/composer.lock" \
+          -x "folders/README.md" \
+          -x "folders/scripts/*" \
+          -x "folders/vendor/*/tests/*" \
+          -x "folders/vendor/*/test/*" \
+          -x "folders/vendor/*/docs/*" \
+          -x "folders/vendor/*/examples/*" \
+          -x "folders/*.zip"
+        
+        # Go back to root
+        cd ..
         
         # Verify zip was created
         echo "Created zip file:"
-        ls -la folders-*.zip
+        ls -la folders.zip
         
-        # Check zip contents
+        # Check zip contents to verify structure
         echo "Zip contents:"
-        unzip -l "folders-${VERSION}.zip" | head -20
+        unzip -l "folders.zip" | head -20
+        
+        # Clean up temp directory
+        rm -rf temp/
         
     - name: Create Release
       uses: softprops/action-gh-release@v1
       with:
-        files: folders-*.zip
+        files: folders.zip
         generate_release_notes: true
         draft: false
         prerelease: false
