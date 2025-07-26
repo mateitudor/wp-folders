@@ -22,18 +22,9 @@ jobs:
       with:
         php-version: '8.1'
         
-    - name: Debug environment
-      run: |
-        echo "Current directory: $(pwd)"
-        echo "PHP version: $(php --version)"
-        echo "Composer version: $(composer --version)"
-        echo "Available files:"
-        ls -la
-        
     - name: Install dependencies
       run: |
         composer install --no-dev --optimize-autoloader --no-interaction
-        echo "Dependencies installed successfully"
         
     - name: Create plugin zip
       run: |
@@ -41,62 +32,18 @@ jobs:
         VERSION=${GITHUB_REF#refs/tags/}
         echo "Creating release for version: $VERSION"
         
-        # Create a temporary directory for the plugin
-        mkdir -p temp/folders
-        
-        # Copy all files to the temp/folders directory
-        echo "Copying files to temp/folders..."
-        cp -r * temp/folders/
-        cp -r .* temp/folders/ 2>/dev/null || echo "Some hidden files copied"
-        
-        # Remove unnecessary files and directories from the temp folder
-        echo "Cleaning up files..."
-        cd temp/folders
+        # Remove unnecessary files
         rm -rf .git .github .gitignore README.md composer.lock scripts/ 2>/dev/null || echo "Some files already removed"
         rm -rf vendor/*/tests vendor/*/test vendor/*/docs vendor/*/examples 2>/dev/null || echo "Some vendor files already removed"
         
-        # List files in temp/folders
-        echo "Files in temp/folders:"
-        ls -la
+        # Create zip with folders/ as the root
+        zip -r "folders.zip" . -x "*.DS_Store" "*.zip"
         
-        # Go back to root and create zip from temp directory
-        cd ../..
-        
-        # Check if zip command is available
-        if ! command -v zip &> /dev/null; then
-          echo "Installing zip..."
-          sudo apt-get update && sudo apt-get install -y zip
-        fi
-        
-        # Create zip file from temp directory (this will create folders/ inside the zip)
-        echo "Creating zip file..."
-        cd temp
-        zip -r "../folders.zip" folders/ \
-          -x "folders/*.DS_Store" \
-          -x "folders/*.git*" \
-          -x "folders/*.github*" \
-          -x "folders/composer.lock" \
-          -x "folders/README.md" \
-          -x "folders/scripts/*" \
-          -x "folders/vendor/*/tests/*" \
-          -x "folders/vendor/*/test/*" \
-          -x "folders/vendor/*/docs/*" \
-          -x "folders/vendor/*/examples/*" \
-          -x "folders/*.zip"
-        
-        # Go back to root
-        cd ..
-        
-        # Verify zip was created
         echo "Created zip file:"
         ls -la folders.zip
         
-        # Check zip contents to verify structure
         echo "Zip contents:"
-        unzip -l "folders.zip" | head -20
-        
-        # Clean up temp directory
-        rm -rf temp/
+        unzip -l folders.zip | head -20
         
     - name: Create Release
       uses: softprops/action-gh-release@v1
