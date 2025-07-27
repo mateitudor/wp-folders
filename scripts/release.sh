@@ -38,16 +38,21 @@ echo "🏷️  Creating tag $TAG..."
 git tag $TAG
 git push origin $TAG
 
-# Create GitHub release
-echo "🚀 Creating GitHub release..."
-gh release create "$TAG" \
-    --title "Version $VERSION" \
-    --notes "## What's New in Version $VERSION
+# Get commit messages since last tag
+echo "📝 Getting commit messages..."
+LAST_TAG=$(git describe --tags --abbrev=0 2>/dev/null | head -1)
+if [ -z "$LAST_TAG" ]; then
+    COMMITS=$(git log --oneline --no-merges)
+else
+    COMMITS=$(git log --oneline --no-merges ${LAST_TAG}..HEAD)
+fi
 
-- Enhanced folder management functionality
-- Improved admin interface and user experience
-- Better error handling and security
-- Performance optimizations
+# Create release notes
+RELEASE_NOTES="## What's New in Version $VERSION
+
+### Changes in this release:
+
+$COMMITS
 
 ## Requirements
 
@@ -57,6 +62,12 @@ gh release create "$TAG" \
 ## Installation
 
 Download and install via WordPress admin or upload manually."
+
+# Create GitHub release
+echo "🚀 Creating GitHub release..."
+gh release create "$TAG" \
+    --title "Version $VERSION" \
+    --notes "$RELEASE_NOTES"
 
 echo "✅ Release created successfully!"
 echo "🔗 View release at: https://github.com/mateitudor/wp-folders/releases" 
