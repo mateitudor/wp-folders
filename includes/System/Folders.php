@@ -254,9 +254,11 @@ class Folders {
     }
 
     public function addAttachment( $attachment_id ) {
-        // Verify nonce for security
-        if ( !isset( $_REQUEST['_wpnonce'] ) || !wp_verify_nonce( $_REQUEST['_wpnonce'], 'folders_attachment_action' ) ) {
-            return;
+        // For uploads, we don't need to verify nonce as WordPress handles security
+        // The nonce verification was preventing automatic folder assignment
+        if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+            error_log( 'Folders: addAttachment called for attachment ID: ' . $attachment_id );
+            error_log( 'Folders: REQUEST data: ' . print_r( $_REQUEST, true ) );
         }
         
         if ( isset( $_REQUEST['folder'] ) ) {

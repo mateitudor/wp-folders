@@ -72,15 +72,27 @@
 						if (h.data.media = !(a || "undefined" == typeof wp || !wp.media || !wp.media.view), h.data.media) {
 							if ("function" == typeof wp.Uploader && g.extend(wp.Uploader.prototype, {
 									init: function() {
-										this.uploader && (h.data.uploader.instance = this.uploader, this.uploader.bind("FileFiltered", function(a, e) {
-											e._folder = h.globals.data.rights.a ? h.data.folder.active : -1
+										this.uploader && (h.data.uploader.instance = this.uploader, 										this.uploader.bind("FileFiltered", function(a, e) {
+											// Use the currently active folder for uploads, but only if it's a valid folder ID (> 0)
+											const activeFolder = h.data.folder.active;
+											e._folder = (h.globals.data.rights.a && activeFolder > 0) ? activeFolder : -1;
+											console.log('Folders: FileFiltered - active folder:', activeFolder, 'assigned folder:', e._folder);
 										}), this.uploader.bind("FilesAdded", function(a, e) {
 											for (const t of e) h.fn.uploader.addFile(t);
 											h.fn.uploader.updateHeader(), h.fn.uploader.open()
-										}), this.uploader.bind("BeforeUpload", function(a, e) {
+										}), 										this.uploader.bind("BeforeUpload", function(a, e) {
 											if (e._folder) {
 												const t = a.settings.multipart_params;
-												0 < (a = parseInt(e._folder)) ? t.folder = a : "folder" in t && delete t.folder
+												const folderId = parseInt(e._folder);
+												if (folderId > 0) {
+													t.folder = folderId;
+													console.log('Folders: BeforeUpload - setting folder parameter to:', folderId);
+												} else {
+													if ("folder" in t) {
+														delete t.folder;
+														console.log('Folders: BeforeUpload - removing folder parameter');
+													}
+												}
 											}
 										}), this.uploader.bind("UploadProgress", function(a, e) {}), this.uploader.bind("FileUploaded", function(a, e) {
 											h.fn.uploader.completeFile(e)
