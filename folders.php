@@ -32,7 +32,9 @@ if ( class_exists( 'Folders\\Plugin' ) ) {
     return;
 }
 
-if( get_option( 'folders_settings' ) ) {
+// Only check for truly incompatible versions, not just existing data
+$old_version = get_option( 'folders_version' );
+if( $old_version && version_compare( $old_version, '2.0.0', '<' ) ) {
     // phpcs:ignore WordPress.Security.NonceVerification.Recommended
     if ( isset( $_GET['folders_delete_old_plugin_data'] ) ) {
         require_once plugin_dir_path( __FILE__ ) . 'includes/Fallbacks/delete-old-plugin-data.php';
