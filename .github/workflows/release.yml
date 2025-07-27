@@ -36,8 +36,8 @@ jobs:
         rm -rf .git .github .gitignore README.md composer.lock scripts/ 2>/dev/null || echo "Some files already removed"
         rm -rf vendor/*/tests vendor/*/test vendor/*/docs vendor/*/examples 2>/dev/null || echo "Some vendor files already removed"
         
-        # Create zip with folders/ as the root
-        zip -r "folders.zip" . -x "*.DS_Store" "*.zip"
+        # Create zip with the contents directly (not nested in folders/)
+        zip -r "folders.zip" * .* -x "*.DS_Store" "*.zip" 2>/dev/null || zip -r "folders.zip" * -x "*.DS_Store" "*.zip"
         
         echo "Created zip file:"
         ls -la folders.zip
