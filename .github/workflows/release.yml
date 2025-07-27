@@ -45,25 +45,11 @@ jobs:
         echo "Zip contents:"
         unzip -l folders.zip | head -20
         
-    - name: Create Release
+    - name: Upload Release Assets
       uses: softprops/action-gh-release@v1
       with:
         files: folders.zip
-        generate_release_notes: true
         draft: false
         prerelease: false
-        body: |
-          ## Folders WordPress Plugin ${{ github.ref_name }}
-          
-          ### What's New
-          - GitHub release system implemented
-          - Auto-update controls added
-          - Improved error handling
-          
-          ### Installation
-          Download and install via WordPress admin or upload manually.
-          
-          ### Changelog
-          See the commit history for detailed changes.
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
