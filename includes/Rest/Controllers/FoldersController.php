@@ -153,12 +153,12 @@ class FoldersController {
 
         register_rest_route(
             FOLDERS_PLUGIN_REST_URL,
-            '/folders/download/(?P<id>[A-Za-z0-9]{13})',
+            '/folders/download/(?P<id>[A-Za-z0-9]{32})',
             [
                 [
                     'methods' => \WP_REST_Server::READABLE,
                     'callback' => [ $this, 'downloadFolders' ],
-                    'permission_callback' => '__return_true'
+                    'permission_callback' => [ $this, 'canDownloadFolders' ]
                 ]
             ]
         );
@@ -371,8 +371,20 @@ class FoldersController {
 
     public function downloadFolders( \WP_REST_Request $request ) {
         $id = sanitize_key( $request->get_param( 'id' ) );
-        FoldersModel::downloadFolders( $id  );
+        FoldersModel::downloadFolders( $id );
         return new \WP_REST_Response( null, 404 );
+    }
+
+    /**
+     * Ensure the request is authenticated and bound to the user who created the download token
+     */
+    public function canDownloadFolders( \WP_REST_Request $request ) {
+        $token = sanitize_key( $request['id'] );
+        $data = get_transient( $token );
+        if ( $data === false || ! is_array( $data ) ) {
+            return false;
+        }
+        return is_user_logged_in() && get_current_user_id() === intval( $data['user'] );
     }
 
     public function debugInfo( \WP_REST_Request $request ) {

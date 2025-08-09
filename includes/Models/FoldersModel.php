@@ -1190,30 +1190,43 @@ class FoldersModel {
     }
 
     public static function getDownloadFoldersUrl( $type, $ids ) {
-        if ( $type !== 'attachment') {
-            return null;
-        }
+		if ( $type !== 'attachment') {
+			return null;
+		}
 
-        $rights = UserModel::getRights( $type );
+		$rights = UserModel::getRights( $type );
 
-        if ( $rights && $rights['access_type'] && $rights['v'] ) {
-            if ( is_array( $ids ) && count( $ids ) > 0 ) {
-                $transientId = uniqid();
-                set_transient( $transientId, $ids, HOUR_IN_SECONDS );
+		if ( $rights && $rights['access_type'] && $rights['v'] ) {
+			if ( is_array( $ids ) && count( $ids ) > 0 ) {
+				// Generate a cryptographically secure token and bind it to the requesting user
+				try {
+					$token = bin2hex( random_bytes( 16 ) );
+				} catch ( \Exception $e ) {
+					return null;
+				}
+				set_transient( $token, [
+					'ids' => array_map( 'intval', $ids ),
+					'user' => get_current_user_id(),
+				], 30 * MINUTE_IN_SECONDS );
 
-                return rest_url( FOLDERS_PLUGIN_REST_URL . '/folders/download/' . $transientId, is_ssl() ? 'https' : 'http' );
-            }
-        }
+				return rest_url( FOLDERS_PLUGIN_REST_URL . '/folders/download/' . $token, is_ssl() ? 'https' : 'http' );
+			}
+		}
 
-        return null;
+		return null;
     }
 
     public static function downloadFolders( $transientId ) {
-        $folders = get_transient( $transientId );
-        if ( $folders === false ) {
-            return null;
-        }
-        delete_transient( $transientId );
+		$data = get_transient( $transientId );
+		if ( $data === false || ! is_array( $data ) || ! isset( $data['ids'], $data['user'] ) ) {
+			return null;
+		}
+		// Ensure the same user who generated the token is performing the download
+		if ( get_current_user_id() !== intval( $data['user'] ) ) {
+			return null;
+		}
+		$folders = $data['ids'];
+		delete_transient( $transientId );
 
         if ( function_exists( 'set_time_limit' ) ) {
             @set_time_limit( 0 ); // phpcs:ignore Squiz.PHP.DiscouragedFunctions.Discouraged
