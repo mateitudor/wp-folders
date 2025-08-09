@@ -421,14 +421,15 @@ class Folders {
                 $preview_details = '<div class="folders-preview-details">';
 
                 if ( in_array( 'title', $list ) ) {
-                    		$preview_details .= '<p>' . esc_html__( "Title", 'folders' ) . ': ' . $attachment->post_title . '</p>';
+                    $preview_details .= '<p>' . esc_html__( "Title", 'folders' ) . ': ' . esc_html( $attachment->post_title ) . '</p>';
                 }
                 if ( in_array( 'alternative_text', $list ) ) {
-                    		$preview_details .= '<p>' . esc_html__( "Alternative text", 'folders' ) . ': ' . get_post_meta( $attachment_id , '_wp_attachment_image_alt', true ) . '</p>';
+                    $alt = get_post_meta( $attachment_id , '_wp_attachment_image_alt', true );
+                    $preview_details .= '<p>' . esc_html__( "Alternative text", 'folders' ) . ': ' . esc_html( $alt ) . '</p>';
                 }
 
                 if ( in_array( 'file_url', $list ) ) {
-                    		$preview_details .= '<p>' . esc_html__( "File URL", 'folders' ) .': ' . $attachment->guid . '</p>';
+                    $preview_details .= '<p>' . esc_html__( "File URL", 'folders' ) .': ' . esc_url( $attachment->guid ) . '</p>';
                 }
 
                 if ( in_array( 'dimension', $list ) ) {
@@ -439,15 +440,17 @@ class Folders {
                 }
 
                 if ( in_array( 'size', $list ) ) {
-                    		$preview_details .= '<p>' . esc_html__( "Size", 'folders' ) . ': ' . size_format( filesize( get_attached_file( $attachment->ID ) ), 0) . '</p>';
+                    $file_path_for_size = get_attached_file( $attachment->ID );
+                    $size_human = is_string( $file_path_for_size ) && is_file( $file_path_for_size ) ? size_format( filesize( $file_path_for_size ), 0 ) : '';
+                    $preview_details .= '<p>' . esc_html__( "Size", 'folders' ) . ': ' . esc_html( $size_human ) . '</p>';
                 }
 
                 if ( in_array( 'filename', $list ) ) {
-                    		$preview_details .= '<p>' . esc_html__( "Filename", 'folders' ) . ': ' . $attachment->post_name . '</p>';
+                    $preview_details .= '<p>' . esc_html__( "Filename", 'folders' ) . ': ' . esc_html( $attachment->post_name ) . '</p>';
                 }
 
                 if ( in_array( 'type', $list ) ) {
-                    		$preview_details .= '<p>' . esc_html__( "Type", 'folders' ) . ': ' . $attachment->post_mime_type . '</p>';
+                    $preview_details .= '<p>' . esc_html__( "Type", 'folders' ) . ': ' . esc_html( $attachment->post_mime_type ) . '</p>';
                 }
 
                 if ( in_array( 'date', $list ) ) {
