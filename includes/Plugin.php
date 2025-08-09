@@ -52,10 +52,10 @@ class Plugin {
         // Add auto-update control
         add_filter( 'auto_update_plugin', [ 'Folders\\Plugin', 'controlAutoUpdates' ], 10, 2 );
         
-        // Add manual update check action
+        // Add manual update check action (admins only)
         add_action( 'wp_ajax_folders_force_update_check', [ 'Folders\\Plugin', 'forceUpdateCheck' ] );
         
-        // Add debug update status action
+        // Add debug update status action (admins only)
         add_action( 'wp_ajax_folders_debug_update_status', [ 'Folders\\Plugin', 'debugUpdateStatus' ] );
         
         // Check if database tables exist, create them if they don't
@@ -222,9 +222,13 @@ class Plugin {
      * Force a manual update check (AJAX endpoint)
      */
     public static function forceUpdateCheck() {
-        // Check permissions
+        // Check permissions and nonce (if provided)
         if ( ! current_user_can( 'manage_options' ) ) {
             wp_die( 'Unauthorized' );
+        }
+        if ( isset( $_POST['_wpnonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'folders_admin_action' ) ) {
+            // Nonce is optional for backward compatibility with existing JS; enforce if sent
+            wp_die( 'Invalid nonce' );
         }
         
         // Clear all update caches
@@ -258,6 +262,10 @@ class Plugin {
             return $result;
         }
         
+        if ( ! current_user_can( 'manage_options' ) ) {
+            return $result;
+        }
+
         // Get the latest version from GitHub
         $latest_version = self::getLatestVersionFromGit();
         
@@ -302,6 +310,12 @@ class Plugin {
      * Can be called via AJAX or directly
      */
     public static function debugUpdateStatus() {
+        if ( ! current_user_can( 'manage_options' ) ) {
+            if ( wp_doing_ajax() ) {
+                wp_send_json_error( [ 'message' => 'Unauthorized' ], 403 );
+            }
+            return [ 'error' => 'unauthorized' ];
+        }
         $current_version = FOLDERS_PLUGIN_VERSION;
         $latest_version = self::getLatestVersionFromGit();
         $cached_version = get_transient( 'folders_git_latest_version' );
