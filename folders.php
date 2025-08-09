@@ -9,6 +9,7 @@
  * Author: Matei Tudor
  * Author URI: https://mateitudor.com
  * License: GPLv3
+ * Update URI: false
  * Text Domain: folders
  * Domain Path: /languages
  */

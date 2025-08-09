@@ -16,6 +16,8 @@ class Plugin {
 			error_log( 'Folders Plugin: activate() method called' );
 		}
 		new System\Installer();
+        // Clear any cached plugin update data to avoid stale wp.org entries
+        delete_site_transient( 'update_plugins' );
 	}
 
 	public static function deactivate() {
@@ -41,6 +43,8 @@ class Plugin {
         
         // Disable WordPress.org update checks for this plugin
         add_filter( 'http_request_args', [ 'Folders\\Plugin', 'disableWordPressOrgUpdates' ], 10, 2 );
+        // Strip our entry both before and after update checks are computed
+        add_filter( 'pre_set_site_transient_update_plugins', [ 'Folders\\Plugin', 'removePluginFromUpdateCheck' ] );
         add_filter( 'site_transient_update_plugins', [ 'Folders\\Plugin', 'removePluginFromUpdateCheck' ] );
         
         // Add custom Git repository update checker
@@ -79,14 +83,22 @@ class Plugin {
     public static function disableWordPressOrgUpdates( $args, $url ) {
         // Check if this is a WordPress.org API request for plugin updates
         if ( strpos( $url, 'api.wordpress.org/plugins/update-check' ) !== false ) {
-            // Decode the body to modify the plugins list
+            // Modify the body to remove our plugin from the update check
             if ( isset( $args['body']['plugins'] ) ) {
-                $plugins = json_decode( $args['body']['plugins'], true );
-                
-                // Remove our plugin from the update check
-                if ( isset( $plugins['plugins'][FOLDERS_PLUGIN_BASE_NAME] ) ) {
-                    unset( $plugins['plugins'][FOLDERS_PLUGIN_BASE_NAME] );
-                    $args['body']['plugins'] = json_encode( $plugins );
+                $raw = $args['body']['plugins'];
+                $decoded = json_decode( $raw, true );
+                if ( is_array( $decoded ) ) {
+                    if ( isset( $decoded['plugins'][FOLDERS_PLUGIN_BASE_NAME] ) ) {
+                        unset( $decoded['plugins'][FOLDERS_PLUGIN_BASE_NAME] );
+                    }
+                    $args['body']['plugins'] = wp_json_encode( $decoded );
+                } else {
+                    // Fallback: some setups send serialized payloads
+                    $maybe = @unserialize( $raw ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_unserialize
+                    if ( is_array( $maybe ) && isset( $maybe['plugins'][FOLDERS_PLUGIN_BASE_NAME] ) ) {
+                        unset( $maybe['plugins'][FOLDERS_PLUGIN_BASE_NAME] );
+                        $args['body']['plugins'] = serialize( $maybe ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_serialize
+                    }
                 }
             }
         }
