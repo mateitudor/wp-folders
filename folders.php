@@ -81,7 +81,10 @@ function get_git_version() {
     $output = array();
     $return_var = 0;
     
-    // Get the latest tag
+    // Get the latest tag (guard exec availability)
+    if ( ! function_exists( 'exec' ) ) {
+        return false;
+    }
     exec( 'cd ' . escapeshellarg( __DIR__ ) . ' && git describe --tags --abbrev=0 2>/dev/null', $output, $return_var );
     
     if ( $return_var === 0 && ! empty( $output[0] ) ) {
